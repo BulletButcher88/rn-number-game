@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderBottomColor: 'grey',
     borderBottomWidth: 1,
-    marginVertical: 10,
+    marginVertical: 50,
   }
 })
 

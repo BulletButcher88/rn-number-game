@@ -1,27 +1,74 @@
-import React from 'react';
-import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableWithoutFeedback, Button, Keyboard, Alert } from 'react-native';
 
 import Card from '../components/Card';
 import Colors from '../constants/colors';
 import Input from '../components/Input'
 
 const StartGameScreen = (props) => {
+  const [enterValue, setEnterValue] = useState('')
+  const [confirmed, setConfirmed] = useState(false)
+  const [selectedNumber, setSelectedNumber] = useState()
+  const [dots, setDots] = useState('.')
+
+  const numberEnterHandler = (text) => {
+    setEnterValue(text.replace(/[^0-99]/g, ''))
+  }
+
+  const resetHandler = () => {
+    setEnterValue('')
+    setConfirmed(false)
+  }
+  const confirmInputHandler = () => {
+    const chosenNumber = parseInt(enterValue);
+    if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+      Alert.alert(
+        'Invalid input:',
+        'Please ender in a number',
+        [{ text: 'TRY AGAIN', style: 'destructive', onPress: resetHandler }])
+      return;
+    }
+    setConfirmed(true)
+    setSelectedNumber(chosenNumber)
+    setEnterValue('')
+  }
+
+
+
+  let confirmedOutput;
+
+
+  if (confirmed) {
+    confirmedOutput = <Text>Chosen Number :{selectedNumber}</Text>
+  }
+
   return (
-    <View style={styles.screen}>
-      <Text style={styles.title}>START A NEW GAME</Text>
-      <Card style={styles.inputContainer}>
-        <Text>Guess a Number</Text>
-        <Input style={styles.input} keyboardType='number-pad' maxLength={2} autoCorrect={false} />
-        <View style={styles.buttonContainer}>
-          <View style={styles.button}>
-            <Button title="RESET" onPress={() => { }} color={Colors.accent} />
+    <TouchableWithoutFeedback onPress={() => {
+      Keyboard.dismiss()
+    }}>
+      <View style={styles.screen}>
+        <Text style={styles.title}>{!enterValue ? 'START A NEW GAME' : "...GUESS WISELY MY FRIEND"}</Text>
+        <Card style={styles.inputContainer}>
+          <Text style={styles.text}>Guess a number between 1 and 99</Text>
+          <Input style={styles.input}
+            keyboardType='number-pad'
+            maxLength={2}
+            autoCorrect={false}
+            onChangeText={numberEnterHandler}
+            value={enterValue}
+          />
+          <View style={styles.buttonContainer}>
+            <View style={styles.button}>
+              <Button title="RESET" onPress={resetHandler} color={Colors.accent} />
+            </View>
+            <View style={styles.button}>
+              <Button title="CONFIRM" onPress={confirmInputHandler} color={Colors.primary} />
+            </View>
           </View>
-          <View style={styles.button}>
-            <Button title="CONFIRM" onPress={() => { }} color={Colors.primary} />
-          </View>
-        </View>
-      </Card>
-    </View>
+        </Card>
+        {confirmedOutput}
+      </View>
+    </TouchableWithoutFeedback>
   )
 };
 
@@ -52,6 +99,9 @@ const styles = StyleSheet.create({
   input: {
     width: 50,
     textAlign: 'center'
+  },
+  text: {
+    fontSize: 18
   }
 })
 
