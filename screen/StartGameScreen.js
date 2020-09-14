@@ -40,8 +40,9 @@ const StartGameScreen = (props) => {
 
   if (confirmed) {
     confirmedOutput = <Card style={styles.summaryContainer}>
-      <Text>You selected</Text>
+      <Text style={styles.text}>Your Guess</Text>
       <NumberContainer>{selectedNumber}</NumberContainer>
+      <Button title="State Game" onPress={() => props.onGameProp(selectedNumber)} />
     </Card>
   }
 
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   text: {
-    fontSize: 18
+    fontSize: 28,
   },
   summaryContainer: {
     marginTop: 10
