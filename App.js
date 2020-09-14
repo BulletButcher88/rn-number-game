@@ -19,13 +19,13 @@ export default function App() {
     setGuessRounds(numberOfRounds)
   }
 
-  let content = userNumber && guessRounds <= 0 ?
+  let content = guessRounds <= 0 ?
     content = (
-      guessRounds <= 0 ?
+      guessRounds >= 0 && userNumber ?
         <GameScreen userChoice={userNumber} onGameOver={gameOverHandler} /> :
-        <GameOver />
+        <StartGameScreen onGameProp={startGameHandler} />
     ) :
-    <StartGameScreen onGameProp={startGameHandler} />
+    <GameOver numGuess={guessRounds} />
 
   return (
     <View style={styles.screen}>
