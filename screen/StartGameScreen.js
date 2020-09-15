@@ -79,7 +79,8 @@ const StartGameScreen = (props) => {
 const styles = StyleSheet.create({
   title: {
     fontSize: 30,
-    marginBottom: 24
+    marginBottom: 24,
+    fontFamily: 'open-san-bold'
   },
   inputContainer: {
     width: 300,
@@ -106,6 +107,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 28,
+    fontFamily: 'open-san'
   },
   summaryContainer: {
     marginTop: 10
