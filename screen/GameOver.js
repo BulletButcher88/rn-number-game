@@ -14,7 +14,7 @@ const GameOver = props => {
           resizeMode='cover'
         />
       </View>
-      <Text style={styles.text}>The number was {props.userNumber}</Text>
+      <Text style={styles.text}>The number was : {props.userNumber}</Text>
       {props.numGuess < 4 ?
         <Text style={styles.text}>{`Well done, you did it in ${props.numGuess}`}</Text> :
         <Text style={styles.text}>{`${props.numGuess} guesses is too many`}</Text>
