@@ -77,9 +77,11 @@ const GameScreen = props => {
           <AntDesign name="pluscircleo" size={30} />
         </ButtonMain>
       </Card>
-      <ScrollView>
-        {passGuesses.map((guess, index) => listOfGuesses(guess, passGuesses.length - index))}
-      </ScrollView>
+      <View style={{ flexGrow: 1 }}>
+        <ScrollView>
+          {passGuesses.map((guess, index) => listOfGuesses(guess, passGuesses.length - index))}
+        </ScrollView>
+      </View>
     </View >
   )
 }
