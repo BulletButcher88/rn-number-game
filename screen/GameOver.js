@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button, Image } from 'react-native';
 import Card from '../components/Card';
+import ButtonMain from '../components/ButtonMain'
 import Colors from '../constants/colors';
 
 const GameOver = props => {
@@ -20,7 +21,7 @@ const GameOver = props => {
         <Text style={styles.text}>{`${props.numGuess} guesses is too many`}</Text>
       }
       <Card style={styles.button} >
-        <Button title="New Game" onPress={props.newGameHandler} />
+        <ButtonMain onPress={props.newGameHandler}>New Game</ButtonMain>
       </Card>
     </View >
   )
