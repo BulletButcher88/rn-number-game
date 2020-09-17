@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert, ScrollView } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'
 
 import NumberContainer from '../components/NumberContainer';
@@ -17,11 +17,18 @@ const generateRandomBetween = (min, max, exclude) => {
   }
 }
 
+const listOfGuesses = (value, numOfRounds) => {
+  return (
+    <View key={value} style={styles.listItems}>
+      <Text style={styles.listText}>#{numOfRounds} </Text>
+      <Text style={styles.listText}>{value}</Text>
+    </View>)
+}
+
 const GameScreen = props => {
-  const [currentGuess, setCurrentGuess] = useState(
-    generateRandomBetween(1, 100, props.userChoice
-    ));
-  const [rounds, setRounds] = useState(0);
+  const initialGuess = generateRandomBetween(1, 100, props.userChoice);
+  const [currentGuess, setCurrentGuess] = useState(initialGuess);
+  const [passGuesses, setPassGuesses] = useState([initialGuess]);
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
 
@@ -29,7 +36,7 @@ const GameScreen = props => {
 
   useEffect(() => {
     if (currentGuess === userChoice) {
-      onGameOver(rounds)
+      onGameOver(passGuesses.length)
     }
   }, [currentGuess, onGameOver, userChoice]);
 
@@ -47,7 +54,7 @@ const GameScreen = props => {
     if (direction === 'lower') {
       currentHigh.current = currentGuess;
     } else {
-      currentLow.current = currentGuess;
+      currentLow.current = currentGuess + 1;
     }
     const nextNumber = generateRandomBetween(
       currentLow.current,
@@ -55,18 +62,25 @@ const GameScreen = props => {
       currentGuess
     );
     setCurrentGuess(nextNumber)
-    setRounds(currentRound => currentRound + 1)
+    // setRounds(currentRound => currentRound + 1)
+    setPassGuesses(curPassGuesses => [nextNumber, ...curPassGuesses])
   }
   return (
     <View style={styles.screen}>
       <Text>Opponent's Guess</Text>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card style={styles.buttonContainer}>
-
-        <ButtonMain onPress={nextGuessHandler.bind(this, 'lower')} ><AntDesign name="minuscircleo" size={30} /></ButtonMain>
-        <ButtonMain onPress={nextGuessHandler.bind(this, 'greater')} ><AntDesign name="pluscircleo" size={30} /></ButtonMain>
+        <ButtonMain onPress={nextGuessHandler.bind(this, 'lower')} >
+          <AntDesign name="minuscircleo" size={30} />
+        </ButtonMain>
+        <ButtonMain onPress={nextGuessHandler.bind(this, 'greater')} >
+          <AntDesign name="pluscircleo" size={30} />
+        </ButtonMain>
       </Card>
-    </View>
+      <ScrollView>
+        {passGuesses.map((guess, index) => listOfGuesses(guess, passGuesses.length - index))}
+      </ScrollView>
+    </View >
   )
 }
 
@@ -82,6 +96,20 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: 300,
     maxWidth: '80%'
+  },
+  listText: {
+    color: 'white',
+    fontSize: 26
+  },
+  listItems: {
+    width: 300,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    backgroundColor: 'grey',
+    flexDirection: 'row',
+    padding: 10,
+    marginTop: 20,
+    borderRadius: 200
   }
 })
 
