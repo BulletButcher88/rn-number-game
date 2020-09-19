@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableWithoutFeedback, Button, Keyboard, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableWithoutFeedback, Button, Keyboard, Alert, Dimensions } from 'react-native';
 
 import Card from '../components/Card';
 import Colors from '../constants/colors';
@@ -54,7 +54,7 @@ const StartGameScreen = (props) => {
       <View style={styles.screen}>
         <Text style={styles.title}>{!enterValue ? 'START A NEW GAME' : "...GUESS WISELY MY FRIEND"}</Text>
         <Card style={styles.inputContainer}>
-          <Text style={styles.text}>Guess a number between 1 and 99</Text>
+          <Text style={styles.text}>Select a number between 1 and 99</Text>
           <Input style={styles.input}
             keyboardType='number-pad'
             maxLength={2}
@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
     fontFamily: 'open-san-bold'
   },
   inputContainer: {
-    width: 300,
-    maxWidth: '80%',
+    width: '80%',
+    minWidth: 300,
     alignItems: 'center',
   },
   screen: {
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
 
   },
   button: {
-    width: 120,
+    width: Dimensions.get('window').width / 4,
   },
   input: {
     width: 50,
@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 28,
+    textAlign: 'center',
     fontFamily: 'open-san'
   },
   summaryContainer: {

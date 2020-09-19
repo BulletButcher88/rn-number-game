@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, Alert, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Alert, ScrollView, Dimensions } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'
 
 import NumberContainer from '../components/NumberContainer';
@@ -21,7 +21,7 @@ const listOfGuesses = (value, numOfRounds) => {
   return (
     <View key={value} style={styles.listItems}>
       <Text style={styles.listText}>#{numOfRounds} </Text>
-      <Text style={styles.listText}>{value}</Text>
+      <Text style={{ ...styles.listText }}>{value}</Text>
     </View>)
 }
 
@@ -95,18 +95,19 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 10,
+    marginTop: Dimensions.get('window').height > 600 ? 20 : 10,
     width: 300,
     maxWidth: '80%'
   },
   listText: {
+    width: '50%',
     color: 'white',
-    fontSize: 26
+    fontSize: 26,
+    textAlign: 'center'
   },
   listItems: {
-    width: 300,
-    alignItems: 'center',
-    justifyContent: 'space-around',
+    flex: 2,
+    width: Dimensions.get('window').width < 350 ? 400 : 300,
     backgroundColor: 'grey',
     flexDirection: 'row',
     padding: 10,
