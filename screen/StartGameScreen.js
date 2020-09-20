@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableWithoutFeedback, Button, Keyboard, Alert, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableWithoutFeedback, Button, Keyboard, Alert, Dimensions, ScrollView } from 'react-native';
 
 import Card from '../components/Card';
 import Colors from '../constants/colors';
@@ -48,39 +48,41 @@ const StartGameScreen = (props) => {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={() => {
-      Keyboard.dismiss()
-    }}>
-      <View style={styles.screen}>
-        <Text style={styles.title}>{!enterValue ? 'START A NEW GAME' : "...GUESS WISELY MY FRIEND"}</Text>
-        <Card style={styles.inputContainer}>
-          <Text style={styles.text}>Select a number between 1 and 99</Text>
-          <Input style={styles.input}
-            keyboardType='number-pad'
-            maxLength={2}
-            autoCorrect={false}
-            onChangeText={numberEnterHandler}
-            value={enterValue}
-          />
-          <View style={styles.buttonContainer}>
-            <View style={styles.button}>
-              <Button title="RESET" onPress={resetHandler} color={Colors.accent} />
+    <ScrollView>
+      <TouchableWithoutFeedback onPress={() => {
+        Keyboard.dismiss()
+      }}>
+        <View style={styles.screen}>
+          <Text style={styles.title}>{!enterValue ? 'START A NEW GAME' : "...GUESS WISELY MY FRIEND"}</Text>
+          <Card style={styles.inputContainer}>
+            <Text style={styles.text}>Select a number between 1 and 99</Text>
+            <Input style={styles.input}
+              keyboardType='number-pad'
+              maxLength={2}
+              autoCorrect={false}
+              onChangeText={numberEnterHandler}
+              value={enterValue}
+            />
+            <View style={styles.buttonContainer}>
+              <View style={styles.button}>
+                <Button title="RESET" onPress={resetHandler} color={Colors.accent} />
+              </View>
+              <View style={styles.button}>
+                <Button title="CONFIRM" onPress={confirmInputHandler} color={Colors.primary} />
+              </View>
             </View>
-            <View style={styles.button}>
-              <Button title="CONFIRM" onPress={confirmInputHandler} color={Colors.primary} />
-            </View>
-          </View>
-        </Card>
-        {confirmedOutput}
-      </View>
-    </TouchableWithoutFeedback>
+          </Card>
+          {confirmedOutput}
+        </View>
+      </TouchableWithoutFeedback>
+    </ScrollView>
   )
 };
 
 const styles = StyleSheet.create({
   title: {
     fontSize: 30,
-    marginBottom: 24,
+    marginBottom: Dimensions.get('screen').width > 420 ? 1 : 92,
     fontFamily: 'open-san-bold'
   },
   inputContainer: {

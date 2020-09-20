@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, Image } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
 import Card from '../components/Card';
 import ButtonMain from '../components/ButtonMain'
 import Colors from '../constants/colors';
@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
     fontFamily: 'open-san-bold'
   },
   imageContainer: {
-    width: 300,
-    height: 300,
+    width: Dimensions.get('window').width > 420 ? 250 : 300,
+    height: Dimensions.get('window').width > 420 ? 250 : 300,
     borderWidth: 3,
     borderColor: 'grey',
     borderRadius: 150,
