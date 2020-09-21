@@ -7,6 +7,8 @@ Simple Expo app
 * Develop cross-platform (iOS and Android) mobile apps without knowing Swift, ObjectiveC or Java/ Android
 
 
+<img src="./assets/Start.png" alt="drawing" width="200"/>
+
 ![](./assets/Start.png) 
 ![Guessing Screen](assets/NumberOfGuesses.png)
 ![Game Over](assets/GameOver.png)
