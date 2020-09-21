@@ -9,9 +9,14 @@ const Header = (props) => {
   const DynamicStyles = () => {
     const screenWidth = Dimensions.get('window').width
     return {
-      height: screenWidth > 420 ? 60 : 90,
-      paddingTop: screenWidth > 420 ? 10 : 36,
-      backgroundColor: screenWidth > 420 ? Colors.theme : Colors.primary,
+      headerContainer: {
+        height: screenWidth > 420 ? 60 : 90,
+        paddingTop: screenWidth > 420 ? 10 : 36,
+        backgroundColor: screenWidth > 420 ? Colors.primary : Colors.accent,
+      }, text: {
+        fontSize: screenWidth > 420 ? 19 : 32,
+        color: 'white',
+      }
     }
   };
 
@@ -30,9 +35,9 @@ const Header = (props) => {
   return (
     <AnimatedLinearGradient
       colors={["rgba(255,255,255, 0)", "rgba(255,215,255, 0.8)"]}
-      style={{ ...styles.headerContainer, ...headerDimension }}
+      style={{ ...styles.headerContainer, ...headerDimension.headerContainer }}
     >
-      <Text style={styles.text}>{props.title}</Text>
+      <Text style={{ ...styles.text, ...headerDimension.text }}>{props.title}</Text>
     </AnimatedLinearGradient>
   )
 };
@@ -43,9 +48,6 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  text: {
-    fontSize: Dimensions.get('window').width > 420 ? 19 : 22
   }
 })
 

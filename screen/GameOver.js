@@ -7,6 +7,7 @@ import Colors from '../constants/colors';
 
 
 const GameOver = props => {
+
   const DynamicStyles = () => {
     const screenWidth = Dimensions.get('window').width
     return {
@@ -72,8 +73,6 @@ const GameOver = props => {
     </View >
   )
 }
-
-
 
 const styles = StyleSheet.create({
   container: {
