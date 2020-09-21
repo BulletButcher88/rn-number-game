@@ -17,6 +17,7 @@ import Input from '../components/Input';
 import NumberContainer from '../components/NumberContainer'
 import ButtonMain from '../components/ButtonMain'
 
+
 const StartGameScreen = (props) => {
 
   const DynamicState = () => {
@@ -64,7 +65,6 @@ const StartGameScreen = (props) => {
   const [enterValue, setEnterValue] = useState('')
   const [confirmed, setConfirmed] = useState(false)
   const [selectedNumber, setSelectedNumber] = useState()
-
   const [dynamicStyles, setDynamicStyles] = useState(DynamicState)
 
   useEffect(() => {

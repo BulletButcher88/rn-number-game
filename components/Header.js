@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, Animated } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Animated, Platform } from 'react-native';
 import { LinearGradient } from "expo-linear-gradient";
 import Colors from '../constants/colors'
 
@@ -42,12 +42,13 @@ const Header = (props) => {
   )
 };
 
-
 const styles = StyleSheet.create({
   headerContainer: {
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    borderColor: Platform.OS === 'ios' ? '#ccc' : 'transparent',
+    borderBottomWidth: Platform.OS === 'ios' ? 5 : 0
   }
 })
 
