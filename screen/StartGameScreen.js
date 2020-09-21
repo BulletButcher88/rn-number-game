@@ -79,42 +79,44 @@ const StartGameScreen = (props) => {
   )
 };
 
+const ScreenWidth = Dimensions.get('window').width
+
 const styles = StyleSheet.create({
   title: {
-    fontSize: 30,
-    marginBottom: Dimensions.get('screen').width > 420 ? 1 : 92,
+    fontSize: ScreenWidth > 420 ? 20 : 30,
+    marginBottom: ScreenWidth > 420 ? 10 : 92,
     fontFamily: 'open-san-bold'
   },
   inputContainer: {
-    width: '80%',
+    width: ScreenWidth > 420 ? '50%' : '80%',
     minWidth: 300,
     alignItems: 'center',
   },
   screen: {
     flex: 1,
-    padding: 10,
+    padding: ScreenWidth > 420 ? 5 : 10,
     alignItems: 'center',
     justifyContent: 'center'
   },
   buttonContainer: {
-    padding: 8,
+    padding: ScreenWidth > 420 ? 3 : 8,
     flexDirection: 'row',
 
   },
   button: {
-    width: Dimensions.get('window').width / 4,
+    width: ScreenWidth / 4,
   },
   input: {
-    width: 50,
+    width: ScreenWidth > 420 ? 25 : 50,
     textAlign: 'center'
   },
   text: {
-    fontSize: 28,
+    fontSize: ScreenWidth > 420 ? 18 : 28,
     textAlign: 'center',
     fontFamily: 'open-san'
   },
   summaryContainer: {
-    marginTop: 10
+    marginTop: ScreenWidth > 420 ? 5 : 10
   }
 })
 

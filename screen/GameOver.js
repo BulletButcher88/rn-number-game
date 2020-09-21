@@ -1,14 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
 import Card from '../components/Card';
 import ButtonMain from '../components/ButtonMain'
 import Colors from '../constants/colors';
 
+
+
 const GameOver = props => {
+  const DynamicStyles = () => {
+    const screenWidth = Dimensions.get('window').width
+    return {
+      width: screenWidth > 420 ? 150 : 300,
+      height: screenWidth > 420 ? 150 : 300,
+      borderRadius: screenWidth > 420 ? 75 : 150,
+    }
+  };
+  const [imageWidth, setImageWidth] = useState(DynamicStyles)
+
+  useEffect(() => {
+    const updateLayout = () => {
+      setImageWidth(DynamicStyles)
+    }
+    Dimensions.addEventListener('change', updateLayout)
+    return () => {
+      Dimensions.removeEventListener('change', updateLayout)
+    }
+  })
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>GAME OVER!</Text>
-      <View style={styles.imageContainer}>
+      <View style={{
+        ...styles.imageContainer,
+        ...imageWidth
+      }}>
         <Image
           style={styles.image}
           source={require('../assets/success.png')}
@@ -27,6 +52,9 @@ const GameOver = props => {
   )
 }
 
+
+const ScreenWidth = Dimensions.get('window').width
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -36,21 +64,20 @@ const styles = StyleSheet.create({
   },
   text: {
     marginVertical: 5,
-    fontSize: 30,
+    fontSize: ScreenWidth > 420 ? 18 : 30,
     color: Colors.accent,
   },
   title: {
-    marginBottom: 15,
-    fontSize: 30,
+    marginBottom: ScreenWidth > 420 ? 8 : 15,
+    fontSize: ScreenWidth > 420 ? 20 : 30,
     color: Colors.primary,
     fontFamily: 'open-san-bold'
   },
   imageContainer: {
-    width: Dimensions.get('window').width > 420 ? 250 : 300,
-    height: Dimensions.get('window').width > 420 ? 250 : 300,
+    // width: ScreenWidth > 420 ? 150 : 300,
+    // height: ScreenWidth > 420 ? 150 : 300,
     borderWidth: 3,
     borderColor: 'grey',
-    borderRadius: 150,
     overflow: 'hidden'
   },
   image: {
@@ -58,7 +85,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   button: {
-    marginTop: 80,
+    marginTop: ScreenWidth > 420 ? 10 : 80,
   },
 
 })
