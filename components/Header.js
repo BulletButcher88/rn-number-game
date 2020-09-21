@@ -3,16 +3,18 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import Colors from '../constants/colors'
 
 const Heater = (props) => {
+  const DynamicStyles = () => {
+    const screenWidth = Dimensions.get('window').width
+    return {
+      height: screenWidth > 420 ? 60 : 90,
+      paddingTop: screenWidth > 420 ? 10 : 36,
+      backgroundColor: screenWidth > 420 ? Colors.theme : Colors.primary,
+    }
+  };
 
-  const [headerDimension, setHeaderDimension] = useState({
-    height: Dimensions.get('window').width > 420 ? 60 : 90,
-    paddingTop: Dimensions.get('window').width > 420 ? 10 : 36
-  })
+  const [headerDimension, setHeaderDimension] = useState(DynamicStyles)
   const updateDimensions = () => {
-    setHeaderDimension({
-      height: Dimensions.get('window').width > 420 ? 60 : 90,
-      paddingTop: Dimensions.get('window').width > 420 ? 10 : 36
-    })
+    setHeaderDimension(DynamicStyles)
   }
 
   useEffect(() => {
@@ -33,7 +35,6 @@ const Heater = (props) => {
 const styles = StyleSheet.create({
   headerContainer: {
     width: '100%',
-    backgroundColor: Colors.theme,
     justifyContent: 'center',
     alignItems: 'center'
   },
