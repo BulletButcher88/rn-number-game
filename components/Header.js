@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Animated } from 'react-native';
+import { LinearGradient } from "expo-linear-gradient";
 import Colors from '../constants/colors'
 
-const Heater = (props) => {
+const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
+
+const Header = (props) => {
   const DynamicStyles = () => {
     const screenWidth = Dimensions.get('window').width
     return {
@@ -25,9 +28,12 @@ const Heater = (props) => {
   })
 
   return (
-    <View style={{ ...styles.headerContainer, ...headerDimension }}>
+    <AnimatedLinearGradient
+      colors={["rgba(255,255,255, 0)", "rgba(255,215,255, 0.8)"]}
+      style={{ ...styles.headerContainer, ...headerDimension }}
+    >
       <Text style={styles.text}>{props.title}</Text>
-    </View>
+    </AnimatedLinearGradient>
   )
 };
 
@@ -36,11 +42,11 @@ const styles = StyleSheet.create({
   headerContainer: {
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   text: {
     fontSize: Dimensions.get('window').width > 420 ? 19 : 22
   }
 })
 
-export default Heater;
+export default Header;
